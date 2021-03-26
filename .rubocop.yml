@@ -3,8 +3,5 @@ AllCops:
   - 'db/**/*'
   - 'bin/bundle'
 
-Metrics/LineLength:
-  Max: 120
-
 Style/Documentation:
   Enabled: false
