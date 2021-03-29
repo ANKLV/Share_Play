@@ -4,44 +4,48 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[show update destroy]
 
   def index
-    @playslists = Playlist.all
+    @playlists = Playlist.all
 
-    render json: @playslists
+    render json: @playlists
   end
 
   def show
-    render json: @playslist
+    render json: @playlist
   end
 
   def create
-    @playslist = Playlist.new(playslist_params)
+    @playlist = Playlist.new(playlist_params)
 
-    if @playslist.save
-      render json: @playslist, status: :created, location: @playslist
+    if @playlist.save
+      render json: @playlist, status: :created
     else
-      render json: @playslist.errors, status: :unprocessable_entity
+      render json: @playlist.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @playslist.update(playslist_params)
-      render json: @playslist
+    if @playlist.update(playlist_params)
+      render json: @playlist
     else
-      render json: @playslist.errors, status: :unprocessable_entity
+      render json: @playlist.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @Playlist.destroy
+    if @playlist.destroy
+      head(:ok)
+    else
+      render json: @playlist.errors, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_playlist
-    @playslist.find(params[:title])
+    @playlist = Playlist.find(params[:id])
   end
 
-  def playslist_params
-    params.require(:playslist).permit(:title)
+  def playlist_params
+    params.require(:playlist).permit(:title)
   end
 end
