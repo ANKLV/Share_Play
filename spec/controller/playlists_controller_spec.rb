@@ -31,34 +31,39 @@ RSpec.describe PlaylistsController, type: :controller do
       end
     end
     describe '#destroy' do
-      subject { delete :destroy, params: params }
       let(:params) { { id: playlist.id } }
 
-      it 'deletes playlist' do
-        playlist.reload
-        expect { subject }.to change(Playlist, :count).by(-1)
-      end
-    end
-    describe '#show' do
-      before { get :index }
+      subject { -> { delete :destroy, params: params } }
 
+      it {
+        playlist.reload
+        is_expected.to change { Playlist.count }.by(-1)
+      }
+    end
+
+    describe '#show' do
+      let(:params) { { id: playlist.id } }
       it 'returns playlist' do
+        get :index
         expect(response).to have_http_status(:ok)
       end
     end
+
     describe '#update' do
       context 'with good data' do
-        it 'updates the playlist' do
-          playlist.reload
-          subject { patch :update, params: params }
-          expect(response).to have_http_status(:created)
-        end
+        before { patch :update, params: { id: playlist.id, playlist: playlist_params } }
+
+        subject { response }
+
+        it { is_expected.to have_http_status(:ok) }
       end
+
       context 'with bad data' do
-        it 'does not change the playlist' do
-          subject { patch :update, params: params }
-          expect(response).not_to be_redirect
-        end
+        before { patch :update, params: { id: playlist.id, playlist: { title: '' } } }
+
+        subject { response }
+
+        it { is_expected.to have_http_status(:unprocessable_entity) }
       end
     end
   end
