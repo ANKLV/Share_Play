@@ -25,7 +25,7 @@ RSpec.describe PlaylistsController, type: :controller do
     context 'should not create a record' do
       let(:playlist_params) { { title: '' } }
 
-      it 'saves the playlist' do
+      it do
         expect { subject }.to_not change(Playlist, :count)
       end
     end
