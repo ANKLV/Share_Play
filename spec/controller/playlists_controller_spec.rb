@@ -6,10 +6,9 @@ RSpec.describe PlaylistsController, type: :controller do
   let(:playlist_params) { attributes_for(:playlist) }
 
   describe '#index' do
-    it 'returns a success response' do
-      get :index
-      expect(response).to have_http_status(:ok)
-    end
+    subject { get :index }
+
+    it { is_expected.to have_http_status(:ok) }
   end
 
   describe '#create' do
@@ -30,10 +29,9 @@ RSpec.describe PlaylistsController, type: :controller do
         expect { subject }.to_not change(Playlist, :count)
       end
     end
-    describe '#destroy' do
-      let(:params) { { id: playlist.id } }
 
-      subject { -> { delete :destroy, params: params } }
+    describe '#destroy' do
+      subject { -> { delete :destroy, params: { id: playlist.id } } }
 
       it {
         playlist.reload
@@ -42,26 +40,20 @@ RSpec.describe PlaylistsController, type: :controller do
     end
 
     describe '#show' do
-      let(:params) { { id: playlist.id } }
-      it 'returns playlist' do
-        get :index
-        expect(response).to have_http_status(:ok)
-      end
+      subject { get :show, params: { id: playlist.id } }
+
+      it { is_expected.to have_http_status(:ok) }
     end
 
     describe '#update' do
       context 'with good data' do
-        before { patch :update, params: { id: playlist.id, playlist: playlist_params } }
-
-        subject { response }
+        subject { patch :update, params: { id: playlist.id, playlist: playlist_params } }
 
         it { is_expected.to have_http_status(:ok) }
       end
 
       context 'with bad data' do
-        before { patch :update, params: { id: playlist.id, playlist: { title: '' } } }
-
-        subject { response }
+        subject { patch :update, params: { id: playlist.id, playlist: { title: '' } } }
 
         it { is_expected.to have_http_status(:unprocessable_entity) }
       end
