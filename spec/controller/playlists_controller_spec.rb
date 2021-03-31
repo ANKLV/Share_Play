@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-RSpec.describe PlaylistsController, type: :controller do
+RSpec.describe Api::V1::PlaylistsController, type: :controller do
   let(:playlist) { create(:playlist) }
   let(:playlist_params) { attributes_for(:playlist) }
 

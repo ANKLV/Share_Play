@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PlaylistsController < ApplicationController
+class Api::V1::PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[show update destroy]
 
   def index
