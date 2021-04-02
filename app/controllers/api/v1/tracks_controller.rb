@@ -48,7 +48,7 @@ module Api
       end
 
       def track_params
-        params.require(:track).permit(:artist, :name, :duration)
+        params.require(:track).permit(:artist, :name, :duration, :file)
       end
     end
   end
