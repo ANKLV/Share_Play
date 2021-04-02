@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlaylistSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :title
 end
