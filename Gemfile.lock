@@ -59,6 +59,8 @@ GEM
       activesupport (= 6.1.3)
       marcel (~> 0.3.1)
       mimemagic (~> 0.3.2)
+    activestorage-audio (0.1.0)
+      activestorage (>= 5)
     activesupport (6.1.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
@@ -214,6 +216,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  activestorage-audio
   bootsnap (>= 1.4.4)
   byebug
   factory_bot_rails

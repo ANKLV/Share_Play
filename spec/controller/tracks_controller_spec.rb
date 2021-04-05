@@ -12,18 +12,20 @@ RSpec.describe Api::V1::TracksController, type: :controller do
   end
 
   describe '#create' do
-    subject { post :create, params: { track: track_params } }
-
-    it { is_expected.to have_http_status(:created) }
-
-    context 'should create a record' do
-      it 'saves the track' do
-        expect { subject }.to change(Track, :count).by(1)
-      end
+    subject do
+      lambda {
+        post :create, params: { track: {
+          audio: Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/files/test.mp3"),
+          name: 'test', artist: 'bon'
+        } }
+      }
     end
 
+    it { is_expected.to change(ActiveStorage::Attachment, :count).by(1) }
+    it { is_expected.to change(Track, :count).by(1) }
+
     context 'should not create a record' do
-      let(:track_params) { { artist: '', name: '', duration: '' } }
+      let(:track_params) { { artist: '', name: '' } }
 
       it do
         expect { subject }.to_not change(Track, :count)
@@ -53,7 +55,7 @@ RSpec.describe Api::V1::TracksController, type: :controller do
       end
 
       context 'with bad data' do
-        subject { patch :update, params: { id: track.id, track: { artist: '', name: '', duration: '' } } }
+        subject { patch :update, params: { id: track.id, track: { artist: '', name: '' } } }
 
         it { is_expected.to have_http_status(:unprocessable_entity) }
       end
