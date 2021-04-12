@@ -6,6 +6,6 @@ class TrackSerializer < ActiveModel::Serializer
   attributes :id, :name, :artist, :url
 
   def url
-    rails_blob_url(object.audio)
+    rails_blob_url(object.audio) if object.audio.attached?
   end
 end

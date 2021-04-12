@@ -2,6 +2,8 @@
 
 class Track < ApplicationRecord
   has_one_attached :audio
+  has_many :playlist_tracks
+  has_many :playlists, through: :playlist_tracks
 
   validates :name, presence: true, on: :update
 
@@ -14,6 +16,6 @@ class Track < ApplicationRecord
   private
 
   def set_artist
-    self.name = audio.blob.filename.to_s
+    self.name = audio.blob.filename.to_s if audio.attached?
   end
 end
