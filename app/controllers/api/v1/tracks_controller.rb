@@ -6,7 +6,7 @@ module Api
       before_action :set_track, only: %i[show update destroy]
 
       def index
-        @tracks = Track.all
+        @tracks = Track.search(params[:query])
 
         render json: @tracks
       end
