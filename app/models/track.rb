@@ -11,9 +11,6 @@ class Track < ApplicationRecord
 
   scope :search, ->(query) { where('name like :search', search: "%#{query}%") if query.present? }
 
-  def duration
-    audio.blob.metadata[:duration] if audio.attached?
-  end
 
   private
 
