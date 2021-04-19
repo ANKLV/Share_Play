@@ -11,7 +11,6 @@ class Track < ApplicationRecord
 
   scope :search, ->(query) { where('name like :search', search: "%#{query}%") if query.present? }
 
-
   private
 
   def set_artist

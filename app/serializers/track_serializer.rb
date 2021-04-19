@@ -10,6 +10,6 @@ class TrackSerializer < ActiveModel::Serializer
   end
 
   def duration
-    Time.at(object.audio.blob.metadata[:duration]).strftime("%M:%S") if object.audio.attached?
+    Time.at(object.audio.blob.metadata[:duration]).strftime('%M:%S') if object.audio.blob&.metadata&.dig(:duration)
   end
 end
