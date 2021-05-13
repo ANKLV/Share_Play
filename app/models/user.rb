@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   has_many :tracks
   has_many :playlists
+  has_secure_token :auth_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
