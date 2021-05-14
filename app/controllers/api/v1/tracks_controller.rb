@@ -4,6 +4,7 @@ module Api
   module V1
     class TracksController < ApplicationController
       before_action :set_track, only: %i[show update destroy]
+      skip_before_action :authenticate_user!, only: :index
 
       def index
         @tracks = Track.search(params[:query])
