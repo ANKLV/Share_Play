@@ -6,7 +6,6 @@ module Api
       before_action :set_playlist, only: %i[show update destroy]
 
       def index
-        binding.pry
         @playlists = Playlist.all
 
         render json: @playlists
