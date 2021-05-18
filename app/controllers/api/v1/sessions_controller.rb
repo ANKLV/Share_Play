@@ -12,10 +12,10 @@ module Api
             @user.regenerate_auth_token
             render json: @user, status: :created
           else
-            render json: { message: 'invalid credentials' }, status: :unprocessable_entity
+            render json: { message: I18n.t('controllers.api.v1.sessions.creds') }, status: :unprocessable_entity
           end
         else
-          render json: { message: 'invalid credentials' }, status: :unprocessable_entity
+          render json: { message: I18n.t('controllers.api.v1.sessions.creds') }, status: :unprocessable_entity
         end
       end
     end
