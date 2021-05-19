@@ -30,4 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  controllers:
+    api:
+      v1:
+        sessions:
+          creds: "Invalid credentials"
