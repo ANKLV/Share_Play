@@ -6,7 +6,7 @@ module Api
       before_action :set_playlist, only: %i[show update destroy]
 
       def index
-        @playlists = Playlist.all
+        @playlists = current_user.playlists
 
         render json: @playlists
       end
@@ -16,7 +16,7 @@ module Api
       end
 
       def create
-        @playlist = Playlist.new(playlist_params)
+        @playlist = current_user.playlists.new(playlist_params)
 
         if @playlist.save
           render json: @playlist, status: :created
@@ -26,7 +26,7 @@ module Api
       end
 
       def update
-        if @playlist.update(playlist_params)
+        if current_user.playlists.update(playlist_params)
           render json: @playlist
         else
           render json: @playlist.errors, status: :unprocessable_entity
@@ -34,7 +34,7 @@ module Api
       end
 
       def destroy
-        if @playlist.destroy
+        if current_user.playlists.destroy
           head(:ok)
         else
           render json: @playlist.errors, status: :unprocessable_entity
@@ -44,7 +44,7 @@ module Api
       private
 
       def set_playlist
-        @playlist = Playlist.find(params[:id])
+        @playlist = current_user.playlists.find(params[:id])
       end
 
       def playlist_params
